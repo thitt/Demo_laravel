@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\CheckMembership;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -38,6 +41,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'check-login' => [
+            CheckLogin::class,
+            CheckMembership::class,
+        ],
 
         'api' => [
             'throttle:60,1',
@@ -63,5 +70,14 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'login' => CheckLogin::class,
+        'login.basic.once' => CheckLogin::class,
+        'membership' => CheckMembership::class,
+        'role' => CheckRole::class,
+    ];
+
+    protected $middlewarePriority = [
+        CheckLogin::class,
+        CheckMembership::class,
     ];
 }

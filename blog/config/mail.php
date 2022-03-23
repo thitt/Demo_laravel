@@ -70,6 +70,10 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+        'to' => [
+            'address' => 'thitt42@wru.vn',
+            'name' => 'Example'
+        ],
     ],
 
     /*
